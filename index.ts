@@ -18,10 +18,10 @@ type FruitBasket = {
 // 2. Add typings/access modifiers to the Person class
 class Person {
   name: string;
-  gender: string;
+  gender: 'male' | 'female';
   age: number;
   likes: string[];
-  public constructor(name: string, gender: string, age: number, likes: string[]) {
+  public constructor(name: string, gender: 'male' | 'female', age: number, likes: string[]) {
     this.name = name;
     this.gender = gender;
     this.age = age;
@@ -30,7 +30,7 @@ class Person {
 
   public introduce() {
     const { name, gender, age, likes } = this;
-    const goodLookingMap: Map<string, string> = new Map([['male', 'handsome'], ['female', 'cute']]);
+    const goodLookingMap: Map<'male' | 'female', string> = new Map([['male', 'handsome'], ['female', 'cute']]);
     return `
       Hello, I'm ${name}, ${age} years old, I like: ${likes.join(', ')}. 
       As you can see, I'm quite ${goodLookingMap.get(gender)} too!
@@ -50,7 +50,7 @@ class MovieService {
   constructor(logger: Logger) {
     this.logger = logger;
   }
-  public getMovies() {
+  public getMovies(): Promise<string[]> {
     return Promise.resolve(['Jaws', 'Spider-Man']).catch(err => {
       this.logger.log(err);
       return [];
